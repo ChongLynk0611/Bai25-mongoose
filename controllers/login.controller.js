@@ -1,3 +1,4 @@
+var md5 = require('md5');
 var db = require('../db');
 
 module.exports.index = function(req, res){
@@ -16,7 +17,8 @@ module.exports.postIndex=function(req, res){
         })
         return;
     }
-    if(req.body.pass !== user.pass){
+    var pass = md5(req.body.pass);
+    if(pass !== user.pass){
         errors.push("pass is wrong !!!");
         res.render('login/index',{
             errors:errors,

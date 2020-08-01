@@ -11,14 +11,21 @@
       "name": "Linh",
       "id": "btg8PvTX8",
       "email": "tronglinh0611@gmail.com",
-      "pass": "123",
+      "pass": "202cb962ac59075b964b07152d234b70",
       "isAdmin": true
     },
     {
       "name": "Tuyen",
       "email": "tuyen@gmail.com",
-      "pass": "123",
+      "pass": "202cb962ac59075b964b07152d234b70",
       "id": "aDyyoMiYI",
+      "isAdmin": false
+    },
+    {
+      "name": "Duc",
+      "email": "duc@gmail.com",
+      "pass": "202cb962ac59075b964b07152d234b70",
+      "id": "NzK9GVlro",
       "isAdmin": false
     }
   ],

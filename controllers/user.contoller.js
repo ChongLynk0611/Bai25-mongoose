@@ -1,4 +1,5 @@
 const shortid = require('shortid');
+var md5 = require('md5');
 var db = require('../db');
 
 module.exports.index = (req, res)=>{
@@ -27,6 +28,7 @@ module.exports.delete = (req, res)=>{
 module.exports.postCreate = (req,res)=>{
     req.body.id = shortid.generate();
     req.body.isAdmin=false;
+    req.body.pass = md5(req.body.pass);
     db.get('users').push(req.body).write();
     res.redirect('/users');
 }
