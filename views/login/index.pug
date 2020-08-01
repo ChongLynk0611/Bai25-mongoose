@@ -1,12 +1,15 @@
 extends ../layout/layout.pug
 block content 
     h1 login
+    if errors
+        each error in errors
+            .alert.alert-danger=error
     form(action="/login" ,method="POST")
         .form-group.ml-4
             label(for="Inputmail") Email
-            input(type="text" , name="email", id="Inputmail").form-control
+            input(type="text" , name="email", id="Inputmail", value=values ?values.email:"").form-control
             lable(for="inputPassword") Password
-            input(type="text" , name="pass" , id="inputPassword" ).form-control
+            input(type="password" , name="pass" , id="inputPassword",value=values? values.pass:"" ).form-control
             button.btn.btn-primary.mt-4 login
 
 

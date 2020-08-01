@@ -7,5 +7,9 @@ block content
         .form-group.ml-4
             lable name  
             input(name="name").form-control
+            label(for="email") email
+            input(type="text", name="email", id="email").form-control
+            label(for="pass") password
+            input(type="password", name="pass",id="pass").form-control
             button.bt.btn-primary create
     a(href="/users").btn.btn-dark back

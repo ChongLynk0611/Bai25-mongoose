@@ -26,6 +26,7 @@ module.exports.delete = (req, res)=>{
 
 module.exports.postCreate = (req,res)=>{
     req.body.id = shortid.generate();
+    req.body.isAdmin=false;
     db.get('users').push(req.body).write();
     res.redirect('/users');
 }

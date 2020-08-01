@@ -1,3 +1,5 @@
+var db = require('../db');
+
 module.exports.postIndex = function(req,res,next){
     var errors=[];
     var id_Book = db.get('books').find({id:req.body.idBook}).value();
