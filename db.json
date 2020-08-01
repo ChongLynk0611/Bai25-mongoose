@@ -3,39 +3,10 @@
   "users": [
     {
       "name": "Linh",
-      "id": "btg8PvTX8"
-    },
-    {
-      "name": "Tuyen",
-      "id": "4722G99n0"
-    },
-    {
-      "name": "Duc",
-      "id": "lPGCHT_R2"
-    },
-    {
-      "name": "Duc",
-      "id": "cRWY58Zl5"
+      "id": "btg8PvTX8",
+      "email": "tronglinh0611@gmail.com",
+      "pass": "123"
     }
   ],
-  "transaction": [
-    {
-      "idBook": "hePMLfnMh",
-      "idUser": "btg8PvTX8",
-      "iscomplete": true,
-      "id": "a7mCWmuN2"
-    },
-    {
-      "idBook": "7qUJB4nNR",
-      "idUser": "btg8PvTX8",
-      "iscomplete": true,
-      "id": "ITZ_GjPS5"
-    },
-    {
-      "idBook": "7qUJB4nNR",
-      "idUser": "btg8PvTX8",
-      "iscomplete": true,
-      "id": "TP8DlZ7pz"
-    }
-  ]
+  "transaction": []
 }
