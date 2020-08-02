@@ -1,5 +1,5 @@
 module.exports.login = function(req, res, next){
-    if(!req.cookies.userId){
+    if(!req.signedCookies.userId){
         res.redirect('/login');
         return;
     }

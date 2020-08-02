@@ -17,7 +17,7 @@ app.set('views', './views');
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(express.static('public'));
-app.use(cookieParser());
+app.use(cookieParser('sadbajhsgdjasbdcjkasbcjkgui12423547325'));
 app.use('/books',loginMidleware.login, booksRouter);
 app.use('/users',loginMidleware.login, usersRouter);
 app.use('/transaction',loginMidleware.login, transaction);

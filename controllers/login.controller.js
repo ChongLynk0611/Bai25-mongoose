@@ -11,8 +11,6 @@ module.exports.postIndex=function(req, res){
         res.cookie('countLogin',0);
     }
     else{
-        
-        
         res.clearCookie('countLogin',cookie);
         res.cookie('countLogin', cookie+1);
     }
@@ -47,7 +45,10 @@ module.exports.postIndex=function(req, res){
         return;
 
     }
-    res.cookie('userId',123);
+    res.cookie('userId',123,{
+        signed:true
+    });
+    res.clearCookie('countLogin',cookie);
     if(user.isAdmin === true){
         
         res.render('users/index',{
