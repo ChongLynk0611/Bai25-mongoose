@@ -2,6 +2,8 @@
 var express = require("express");
 var app = express();
 var cookieParser = require('cookie-parser')
+var dotenv = require('dotenv').config();
+
 var db = require('./db');
 var booksRouter = require('./routes/books.router');
 var usersRouter = require('./routes/users.router');
@@ -17,7 +19,7 @@ app.set('views', './views');
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(express.static('public'));
-app.use(cookieParser('sadbajhsgdjasbdcjkasbcjkgui12423547325'));
+app.use(cookieParser(process.env.session_secreat));
 app.use('/books',loginMidleware.login, booksRouter);
 app.use('/users',loginMidleware.login, usersRouter);
 app.use('/transaction',loginMidleware.login, transaction);
