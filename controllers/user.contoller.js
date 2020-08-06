@@ -1,6 +1,11 @@
 const shortid = require('shortid');
 var md5 = require('md5');
+
+
 var db = require('../db');
+
+
+
 
 module.exports.index = (req, res)=>{
     res.render('users/index',{
@@ -24,10 +29,17 @@ module.exports.delete = (req, res)=>{
     db.get('users').remove({id:id}).write();
     res.redirect('/users');
 }
+module.exports.profile =(req,res)=>{
+    var id =req.params.id;
+    res.render('users/profile',{
+        user:user = db.get('users').find({id:id}).value()
+    })
+}
 
 module.exports.postCreate = (req,res)=>{
     req.body.id = shortid.generate();
     req.body.isAdmin=false;
+    req.body.img=req.file.path.split('/').slice(1).join('/');
     req.body.pass = md5(req.body.pass);
     db.get('users').push(req.body).write();
     res.redirect('/users');

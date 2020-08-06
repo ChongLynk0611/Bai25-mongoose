@@ -6,16 +6,22 @@ block content
 
     table.table.ml-4
         tr 
+            th Avatar
             th Name
             th Edit
             th Delete
+            th Profile
         each user in users
             tr
+                th 
+                    img(src=user.img, alt="",width=64)
                 th #{user.name} 
                 th 
                     a(href="/users/edit/"+user.id) edit
                 th
                     a(href="/users/delete/"+user.id) delete
+                th
+                    a(href="/users/profile/"+user.id) profile
                 
                 
                 

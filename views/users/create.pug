@@ -3,7 +3,7 @@ block content
     h1 create users
     if error
         .alert.alert-danger=error
-    form(action="/users/create",method="POST")
+    form(action="/users/create",method="POST",enctype="multipart/form-data")
         .form-group.ml-4
             lable name  
             input(name="name").form-control
@@ -11,5 +11,9 @@ block content
             input(type="text", name="email", id="email").form-control
             label(for="pass") password
             input(type="password", name="pass",id="pass").form-control
-            button.bt.btn-primary create
+        .form-group
+            lable Avatar
+            input(type="file", name="avatar")
+        button.bt.btn-primary create
+
     a(href="/users").btn.btn-dark back
