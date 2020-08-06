@@ -1,9 +1,9 @@
 const shortid = require('shortid');
 var md5 = require('md5');
-
+var multer  = require('multer');
 
 var db = require('../db');
-
+var upload = multer({ dest: './public/uploads/' });
 
 
 
@@ -51,4 +51,12 @@ module.exports.postEdit = (req,res)=>{
     var user = db.get('users').find({id:id}).value();
     user.name = name;
     res.redirect('/users');
+}
+
+module.exports.postProfile = (req, res)=>{
+    var id = req.params.id;
+    var user = db.get('users').find({id:id}).value();
+    user.img = req.file.path.split('/').slice(1).join('/');
+    db.get('users').write();
+    res.redirect("/users");
 }

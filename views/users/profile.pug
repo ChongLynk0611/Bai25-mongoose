@@ -1,8 +1,12 @@
 extends ../layout/layout.pug 
 block content 
-    
-    img(src=user.img)
-    p Name: #{user.name}
-    button submit
+    form(action="/users/profile/"+user.id,method="POST",enctype="multipart/form-data")
+        img(src="/"+user.img,width=100)
+        p Name: #{user.name}
+        .form-group
+            lable thay avatar
+            input(type="file", name="avatar")
+        button submit
+        
 
     a(href="/users") back

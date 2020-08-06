@@ -19,5 +19,6 @@ router.get('/profile/:id',controller.profile);
 
 router.post('/create',upload.single('avatar'),countCookie.Count,validate.postCreate ,  controller.postCreate);
 router.post('/edit/:id' ,countCookie.Count, controller.postEdit);
+router.post('/profile/:id',upload.single('avatar'),controller.postProfile);
 
 module.exports = router;
