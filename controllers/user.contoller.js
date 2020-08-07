@@ -56,6 +56,7 @@ module.exports.postEdit = (req,res)=>{
 module.exports.postProfile = (req, res)=>{
     var id = req.params.id;
     var user = db.get('users').find({id:id}).value();
+    
     user.img = req.file.path.split('/').slice(1).join('/');
     db.get('users').write();
     res.redirect("/users");
