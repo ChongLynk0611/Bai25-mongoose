@@ -29,6 +29,7 @@ module.exports.edit = (req,res)=>{
 
 module.exports.postCreate = (req,res)=>{
     req.body.id=shortid.generate();
+    req.body.img = req.file.path.split('/').slice(1).join('/');
     db.get('books').push(req.body).write();
     res.redirect('/books');
 }

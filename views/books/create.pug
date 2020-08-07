@@ -1,12 +1,14 @@
 extends ../layout/layout.pug 
 block content
     h1 create new book
-    form(action="/books/create", method="POST", class="form-inline")
+    form(action="/books/create", method="POST", class="form-inline",enctype="multipart/form-data")
         lable title
         input(name="title",typr="text",class="form-control")
         lable description
         input(name="description" type="text",class="form-control")
         .form-group
             label(for="avatar") 
-        button(class="btn-primary ml-2") create
+            input.file#avatar(type="file",name="avatar")
+        button(class="btn-primary ml-2") create 
+        
     a(href="/books",class="btn btn-dark") back

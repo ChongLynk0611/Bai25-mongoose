@@ -51,7 +51,7 @@ module.exports.postIndex=function(req, res){
     res.clearCookie('countLogin',cookie);
     if(user.isAdmin === true){
         
-        res.render('users/index',{
+        res.render('home/index',{
             users: db.get('users').value()
         });
         return;

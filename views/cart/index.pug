@@ -9,8 +9,17 @@ block content
                 li(class="nav-item active")
                     a(href="/home",class="nav-link") HOME
                 li(class="nav-item")
-                    a(href="/cart",class="nav-link") cart
-    each book in books  
-        p #{book.title}
+                    span
+                        a(href="/cart",class="nav-link") cart
+                            span (#{count}) 
+    div.container
+            each book in books
+                div.item
+                    img(src=book.img, alt="").image
+                    div.infor 
+                        div Name: #{book.name}
+                        div desciption: #{book.description}
+                    a.btn.btn-primary(href="/cart/add/"+book.id) add to cart
+        
 
     

@@ -12,6 +12,7 @@ var homeRouter = require('./routes/home.router');
 var loginRouter = require('./routes/login.router');
 var loginMidleware = require('./midleware/login.midleware');
 var cartRouter = require('./routes/cart.router');
+var sessionMidleware = require('./midleware/session.midleware');
 // khai bao pug
 app.set('view engine', 'pug');
 app.set('views', './views');
@@ -26,7 +27,7 @@ app.use('/users',loginMidleware.login, usersRouter);
 app.use('/transaction',loginMidleware.login, transaction);
 app.use('/home',loginMidleware.login, homeRouter);
 app.use('/login',loginRouter);
-app.use('/',cartRouter);
+app.use('/',sessionMidleware,cartRouter);
 app.listen(3000 , function(){
     console.log("this is port 3000!!!");
 });
