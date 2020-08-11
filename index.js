@@ -1,5 +1,8 @@
 
 var express = require("express");
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/ThuVien');
+
 var app = express();
 var cookieParser = require('cookie-parser')
 var dotenv = require('dotenv').config();

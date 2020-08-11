@@ -1,20 +1,21 @@
 
-var db = require('../db');
-
-
-module.exports.listBooks = (req,res)=>{
+var Session = require('../model/sessions.model');
+var Book = require('../model/books.model');
+module.exports.listBooks = async(req,res)=>{
     var sessionId = req.signedCookies.sessionId;
-    var cart = db
-                .get('sessions')
-                .find({sessionId:sessionId})
-                .value()
-                .cart;
+    var session = await Session.findById(sessionId);
+    var cart = await session.cart;
+    // db
+    //             .get('sessions')
+    //             .find({sessionId:sessionId})
+    //             .value()
+    //             .cart;
     var count = 0;
     for(var book in cart){
         count =count + cart[book];
     }
     res.render('cart/index',{
-        books:db.get('books').value(),
+        books:Book.find(),
         count:count
     });
 }

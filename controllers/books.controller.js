@@ -1,42 +1,42 @@
 const shortid = require('shortid');
 
-var db = require('../db');
+var Books = require('../model/books.model');
 
-module.exports.index = (req, res)=>{
-    
+module.exports.index = async (req, res)=>{
+    var books = await  Books.find();
     res.render('books/index',{
-        books: db.get('books').value()
+        books: books
     });
+   
+    
 }
 module.exports.create = (req, res)=>{
-   
+    
     res.render('books/create');
 }
 
-module.exports.delete = (req,res)=>{
+module.exports.delete = async (req,res)=>{
     var id = req.params.id;
-    db.get('books').remove({id:id}).write();
+    await Books.findById(id).deleteOne();
     res.redirect('/books');
 }
 
-module.exports.edit = (req,res)=>{
+module.exports.edit =async (req,res)=>{
     var id = req.params.id;
-    var book = db.get('books').find({id:id}).value();
+    var book = await Books.findById(id).exec();
     res.render('books/edit' , {
         book:book
     })
 }
 
 module.exports.postCreate = (req,res)=>{
-    req.body.id=shortid.generate();
     req.body.img = req.file.path.split('/').slice(1).join('/');
-    db.get('books').push(req.body).write();
+    Books.create(req.body);
     res.redirect('/books');
 }
-module.exports.postEdit = (req,res)=>{
+module.exports.postEdit = async (req,res)=>{
     var id = req.params.id;
-    var book = db.get('books').find({id:id}).value();
-    book.title = req.body.title;
-    db.get('books').write();
+    var book = await Books.findById(id);
+    await book.update({title: req.body.title}) ;
     res.redirect('/books'); 
 }
