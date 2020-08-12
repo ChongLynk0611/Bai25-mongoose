@@ -3,8 +3,8 @@ var Session = require('../model/sessions.model');
 var Book = require('../model/books.model');
 module.exports.listBooks = async(req,res)=>{
     var sessionId = req.signedCookies.sessionId;
-    var session = await Session.findById(sessionId);
-    var cart = await session.cart;
+    var session = await Session.find({sessionId:sessionId}).exec();
+    var cart =  session.cart;
     // db
     //             .get('sessions')
     //             .find({sessionId:sessionId})
@@ -14,15 +14,16 @@ module.exports.listBooks = async(req,res)=>{
     for(var book in cart){
         count =count + cart[book];
     }
+    var books =await Book.find();
     res.render('cart/index',{
-        books:Book.find(),
+        books:books,
         count:count
     });
 }
 module.exports.cart = (req,res)=>{
 
 }
-module.exports.cartAdd = (req,res)=>{
+module.exports.cartAdd = async (req,res)=>{
     if(!req.signedCookies.sessionId){
         res.redirect('/');
         return;
@@ -30,16 +31,20 @@ module.exports.cartAdd = (req,res)=>{
 
     var sessionId = req.signedCookies.sessionId;
     var idBook = req.params.idBook;
-    
-    var count = db
-                .get('sessions')
-                .find({sessionId:sessionId})
-                .get("cart."+idBook,0);
+    var session = await Session.findOne({id:sessionId});
 
-    db.get('sessions')
-    .find({sessionId:sessionId})
-    .set("cart."+idBook,count+1)
-    .write();
+    var book = session.cart.find(
+        cartItem => cartItem.idBook === idBook
+    )
+    if(!book){
+        await Session.findOneAndUpdate({id:sessionId},{$push:{cart:{idBook,amount:1}}});
+    }
+    else{
+        book.amount +=1;
+        session.save();
+    }
+
+    
 
     res.redirect('/');
 
