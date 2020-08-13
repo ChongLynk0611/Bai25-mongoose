@@ -2,14 +2,16 @@ const shortid = require('shortid');
 var md5 = require('md5');
 var multer  = require('multer');
 
-var db = require('../db');
+var User = require('../model/users.model');
+
 var upload = multer({ dest: './public/uploads/' });
 
 
 
-module.exports.index = (req, res)=>{
+module.exports.index = async (req, res)=>{
+    var users = await User.find();
     res.render('users/index',{
-        users:db.get('users').value()
+        users:users
     })
 };
 
@@ -17,47 +19,49 @@ module.exports.create = (req,res)=>{
     res.render('users/create');
 };
 
-module.exports.edit =(req,res)=>{
+module.exports.edit =async (req,res)=>{
     var id = req.params.id;
+    var user = await User.findById(id);
     res.render('users/edit',{
-        user: db.get('users').find({id:id}).value()
+        user: user
     })
 }
 
-module.exports.delete = (req, res)=>{
+module.exports.delete = async (req, res)=>{
     var id = req.params.id;
-    db.get('users').remove({id:id}).write();
+    await User.findByIdAndRemove(id);
     res.redirect('/users');
 }
-module.exports.profile =(req,res)=>{
+module.exports.profile =async (req,res)=>{
     var id =req.params.id;
+    var user= await User.findById(id);
     res.render('users/profile',{
-        user:user = db.get('users').find({id:id}).value()
+        user:user
     })
 }
 
-module.exports.postCreate = (req,res)=>{
+module.exports.postCreate = async(req,res)=>{
     req.body.id = shortid.generate();
     req.body.isAdmin=false;
     req.body.img=req.file.path.split('/').slice(1).join('/');
     req.body.pass = md5(req.body.pass);
-    db.get('users').push(req.body).write();
+    await User.create(req.body);
     res.redirect('/users');
 }
 
-module.exports.postEdit = (req,res)=>{
+module.exports.postEdit = async(req,res)=>{
     var id = req.params.id;
     var name = req.body.name;
-    var user = db.get('users').find({id:id}).value();
+    var user = await User.findById(id);
     user.name = name;
+    user.save();
     res.redirect('/users');
 }
 
-module.exports.postProfile = (req, res)=>{
+module.exports.postProfile = async(req, res)=>{
     var id = req.params.id;
-    var user = db.get('users').find({id:id}).value();
-    
+    var user = await User.findById(id);
     user.img = req.file.path.split('/').slice(1).join('/');
-    db.get('users').write();
+    user.save();
     res.redirect("/users");
 }

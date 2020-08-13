@@ -6,7 +6,7 @@ var db = require('../db');
 var controller = require('../controllers/transaction.controller');
 router.get('/' ,countCookie.Count, controller.index);
 router.get('/create',countCookie.Count,controller.create);
-router.get('/:id/completed' ,countCookie.Count, controller.completed);
+router.get('/:id/completed' , controller.completed);
 
 router.post('/' ,countCookie.Count,validate.postIndex, controller.postIndex );
 

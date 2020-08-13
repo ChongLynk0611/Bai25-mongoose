@@ -1,8 +1,11 @@
 var db = require('../db');
+var Transaction = require('../model/transaction.model');
 const shortid = require('shortid');
-module.exports.index =  (req, res)=>{
+module.exports.index =  async (req, res)=>{
+    var transactions  = await Transaction.find();
+    
     res.render('transaction/transaction' , {
-        transactions: db.get('transaction').value()
+        transactions:transactions
     });
 }
 
@@ -13,16 +16,16 @@ module.exports.create = (req,res)=>{
 module.exports.postIndex = (req ,res)=>{
     req.body.iscomplete = false;
     req.body.id = shortid.generate();
-    db.get('transaction').push(req.body).write();
+    Transaction.create(req.body);
     res.redirect('/transaction');
 }
 
-module.exports.completed = (req, res)=>{
+module.exports.completed = async(req, res)=>{
     var id = req.params.id;
-    var transaction = db.get('transaction').find({id:id}).value();
+    var transaction = await Transaction.findById(id);
     if(transaction){
         transaction.iscomplete = true;
-        db.get('transaction').write();
+        transaction.save();
         res.redirect('/transaction');
         return;
     }

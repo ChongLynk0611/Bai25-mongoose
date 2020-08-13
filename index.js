@@ -7,14 +7,13 @@ var app = express();
 var cookieParser = require('cookie-parser')
 var dotenv = require('dotenv').config();
 
-var db = require('./db');
 var booksRouter = require('./routes/books.router');
 var usersRouter = require('./routes/users.router');
 var transaction = require('./routes/transaction.router');
 var homeRouter = require('./routes/home.router');
 var loginRouter = require('./routes/login.router');
-var loginMidleware = require('./midleware/login.midleware');
 var cartRouter = require('./routes/cart.router');
+var loginMidleware = require('./midleware/login.midleware');
 var sessionMidleware = require('./midleware/session.midleware');
 // khai bao pug
 app.set('view engine', 'pug');

@@ -1,11 +1,10 @@
 var md5 = require('md5');
-var db = require('../db');
-
+var User = require('../model/users.model');
 module.exports.index = function(req, res){
     res.render('login/index');
 }
 
-module.exports.postIndex=function(req, res){
+module.exports.postIndex=async function(req, res){
     var cookie = parseInt(req.cookies.countLogin);
     if(!req.cookies.countLogin){
         res.cookie('countLogin',0);
@@ -17,7 +16,7 @@ module.exports.postIndex=function(req, res){
     
     var errors =[];
     var values;
-    var user = db.get('users').find({email:req.body.email}).value();
+    var user = await User.findOne({email:req.body.email});
     if(cookie>4){
         errors.push('login wrongly more than 4 times !!!');
         res.render('login/index',{
@@ -50,9 +49,9 @@ module.exports.postIndex=function(req, res){
     });
     res.clearCookie('countLogin',cookie);
     if(user.isAdmin === true){
-        
-        res.render('home/index',{
-            users: db.get('users').value()
+        var users = await User.find();
+        res.render('users/index',{
+            users: users
         });
         return;
     }
